@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-# This script displays the content of the current directory, showing only the part of the filename after the first dash
+# Display files in the current directory after the first dash using a for loop
 
-for file in *-*  # Loop over all files that contain a dash
-do
-  # Display the part of the filename after the first dash
-  echo "${file#*-}"
+shopt -s nullglob
+for file in *-*; do
+    [ -f "$file" ] && echo "${file#*-}"
 done
 
