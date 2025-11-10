@@ -1,18 +1,5 @@
 #!/usr/bin/env bash
-# This script displays files from the current directory, showing only the part after the first dash.
-
-shopt -s nullglob  # To prevent the loop from running if no matching files are found
-
-# Check if the folder is empty
-files=(*-*)
-if [ ${#files[@]} -eq 0 ]; then
-    echo "No files found"
-else
-    # Loop through files that contain a dash and are regular files
-    for file in "${files[@]}"; do
-        if [ -f "$file" ]; then  # Make sure it's a regular file, not a directory
-            echo "${file#*-}"  # Display the part of the filename after the first dash
-        fi
-    done
-fi
-
+shopt -s nullglob
+for file in *-*; do
+    [ -f "$file" ] && echo "${file#*-}"  # Eğer dosya ise, ilk tireden sonrası
+done
