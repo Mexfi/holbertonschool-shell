@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-# This script displays files in the current directory, showing only the part after the first dash
+# This script displays the part after the first dash of filenames that contain a dash, excluding special files.
 
-for file in *-*  # Process only files containing a dash in their name
-do
-  echo "${file#*-}"  # Display part of the filename after the first dash
-done
+# Check if the directory is empty or contains files
+if [ -z "$(ls -A)" ]; then
+  # If the directory is empty, print nothing
+  echo "The directory is empty"
+else
+  # Loop through files that contain a dash
+  for file in *-*; do
+    # Check if it's a regular file (not a directory or special file)
+    if [ -f "$file" ]; then
+      # Display part of the filename after the first dash
+      echo "${file#*-}"
+    fi
+  done
+fi
 
