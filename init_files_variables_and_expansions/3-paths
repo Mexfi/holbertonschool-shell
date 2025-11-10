@@ -1,2 +1,2 @@
-#!bin/bash
-IFS=: read -ra DIRS <<< "$PATH"; i=0; for d in "${DIRS[@]}"; do [ -n "$d" ] && i=$((i+1)); done; echo "$i"
+#!/bin/bash
+echo "$PATH" | tr ':' '\n' | grep -v "^$" | wc -l
