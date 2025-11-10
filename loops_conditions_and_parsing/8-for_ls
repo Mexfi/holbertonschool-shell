@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # This script displays the content of the current directory, showing only the part after the first dash.
 
-for file in *-*; do
-    # Only process regular files (ignore directories or hidden files)
-    if [ -f "$file" ]; then
-        # Display the part after the first dash
+shopt -s nullglob  # Prevent the loop from running if no matching files are found
+
+# Loop through all files (including those without a dash)
+for file in *; do
+    # If the file has a dash, print everything after the first dash
+    if [[ "$file" == *-* ]]; then
         echo "${file#*-}"
+    else
+        # Otherwise, print the whole filename
+        echo "$file"
     fi
 done
 
