@@ -1,0 +1,3 @@
+#!/bin/bash
+for i in range(26):for j in range(26):print(chr(i+97)+chr(j+97))*(i!=j or (i!=14 or j!=14))
+
