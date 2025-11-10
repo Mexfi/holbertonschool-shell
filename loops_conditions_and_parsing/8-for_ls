@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-shopt -s nullglob
+# This script displays the content of the current directory, showing only the part after the first dash.
+
 for file in *-*; do
-    [ -f "$file" ] && echo "${file#*-}"  # Eğer dosya ise, ilk tireden sonrası
+    # Only process regular files (ignore directories or hidden files)
+    if [ -f "$file" ]; then
+        # Display the part after the first dash
+        echo "${file#*-}"
+    fi
 done
+
