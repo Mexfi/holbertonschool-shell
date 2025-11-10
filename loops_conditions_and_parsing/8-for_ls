@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
-# This script displays the time for 12 hours and 59 minutes
+# This script displays the content of the current directory with the part of the name after the first dash
 
-hour=0
-while [ $hour -le 12 ]
+for file in */
 do
-  echo "Hour: $hour"
-  minute=1
-  while [ $minute -le 59 ]
-  do
-    echo "$minute"
-    ((minute++))
-  done
-  ((hour++))
+  # Remove the trailing slash and cut the part after the first dash
+  echo "$file" | sed 's/^[^-]*-//'
 done
 
