@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 for file in *-*
 do
-  # Use parameter expansion to extract the part after the first dash
   echo "${file#*-}"
 done
 
