@@ -1,2 +1,2 @@
-#!/usr/bin/ver bash
+#!/usr/bin/env bash
 echo $$
