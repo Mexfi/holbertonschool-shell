@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Display PID and process name for processes containing 'bash' without using ps
+for pid in /proc/[0-9]*; do
+    if [ -f "$pid/comm" ]; then
+        process_name=$(cat "$pid/comm")
+        if [[ "$process_name" == *bash* ]]; then
+            echo "${pid##*/} $process_name"
+        fi
+    fi
+done 2>/dev/null
