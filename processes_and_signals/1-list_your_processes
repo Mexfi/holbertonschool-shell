@@ -1,3 +1,9 @@
-#!/usr/bin/env bash
-# Display a list of currently running processes
-ps -e -o user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,comm --forest
+# This script displays a list of currently running processes with hierarchy.
+
+echo "Currently Running Processes (Hierarchical View):"
+echo "------------------------------------------------"
+
+# Use ps -axjf for a full listing with a job control format, including
+# processes without a controlling terminal and showing hierarchy.
+# The 'f' option provides ASCII art process tree.
+ps -axjf
