@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script stops the process running '4-to_infinity_and_beyond'.
+# We use 'pkill' because 'kill' and 'killall' are forbidden.
+# By default, pkill sends the SIGTERM signal (15), which asks the process to terminate gracefully.
+
+# We target the process by its exact name, including the "4-" prefix.
+pkill "4-to_infinity_and_beyond"
