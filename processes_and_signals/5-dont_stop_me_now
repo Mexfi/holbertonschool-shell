@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
-# This script prints "To infinity and beyond" indefinitely.
+# This script finds the Process ID (PID) of the '4-to_infinity_and_beyond'
+# script and sends a termination signal (SIGTERM, the default).
 
-while true; do
-    echo "To infinity and beyond"
-    sleep 2
-done
+# 1. Use pgrep with -x (exact match) to find the PID of the running script.
+TARGET_SCRIPT="4-to_infinity_and_beyond"
+PID=$(pgrep -x "$TARGET_SCRIPT")
 
-# Note: Press Ctrl+C to stop the script's execution.
+# 2. Check if the process was found.
+if [ -z "$PID" ]; then
+    # Use standard error (>&2) to output the error message
+    echo "Error: The '$TARGET_SCRIPT' process is not currently running." >&2
+    exit 1
+fi
+
+# 3. Use the 'kill' command with the found PID.
+# The default signal for 'kill' is 15 (SIGTERM), which is a graceful termination request.
+kill "$PID"
+
+# Optional confirmation message (this will appear in Terminal #1)
+echo "Successfully terminated process '$TARGET_SCRIPT' with PID $PID."
+
+exit 0
