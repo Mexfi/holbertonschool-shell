@@ -1,4 +1,4 @@
-#!/bin/usr/ver bash
+#!/usr/bin/env bash
 # This script displays a list of currently running processes with hierarchy.
 
 echo "Currently Running Processes (Hierarchical View):"
