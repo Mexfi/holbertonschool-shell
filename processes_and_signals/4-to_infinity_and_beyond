@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script displays the phrase "To infinity and beyond" indefinitely.
+
+while true; do
+    # Display the required phrase
+    echo "To infinity and beyond"
+    
+    # Wait for 2 seconds before the next iteration
+    sleep 2
+done
+
+# The script will continue running until manually stopped (e.g., with Ctrl+C).
