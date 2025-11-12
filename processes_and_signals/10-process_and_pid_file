@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 # Process and PID file management
 
-# PID faylını yarat
-echo $$ > /var/run/myscript.pid
+# PID file path
+PID_FILE="/var/run/myscript.pid"
 
-# Cleanup funksiyası
-cleanup() {
-    rm -f /var/run/myscript.pid
-    exit 0
-}
+# Create PID file
+echo $$ > "$PID_FILE"
 
-# Signal handlerları təyin et
-trap 'echo "I hate the kill command"; cleanup' TERM
+# Handle SIGTERM - delete file and terminate
+trap 'echo "I hate the kill command"; rm -f "$PID_FILE"; exit 0' TERM
+
+# Handle SIGINT - just display message
 trap 'echo "Y U no love me?!"' INT
-trap cleanup QUIT
 
-# Sonsuz loop
-while true
-do
+# Handle SIGQUIT - delete file and terminate  
+trap 'rm -f "$PID_FILE"; exit 0' QUIT
+
+# Main loop
+while true; do
     echo "To infinity and beyond"
     sleep 2
 done
