@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Init script to manage the manage_my_process daemon
+
+case "$1" in
+    start)
+        # Start manage_my_process in background
+        ./manage_my_process &
+        # Save PID to file
+        echo $! > /var/run/my_process.pid
+        echo "manage_my_process started"
+        ;;
+    stop)
+        # Kill the process and remove PID file
+        kill "$(cat /var/run/my_process.pid)" 2>/dev/null
+        rm -f /var/run/my_process.pid
+        echo "manage_my_process stopped"
+        ;;
+    restart)
+        # Stop the process
+        kill "$(cat /var/run/my_process.pid)" 2>/dev/null
+        rm -f /var/run/my_process.pid
+        # Start the process again
+        ./manage_my_process &
+        echo $! > /var/run/my_process.pid
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
