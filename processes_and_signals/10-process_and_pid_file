@@ -2,16 +2,16 @@
 # Process and PID file management
 
 # PID faylını yarat
-echo $$ > /var/run/myscript.pid
+pidfile="/var/run/myscript.pid"
+echo $$ > "$pidfile"
 
 # Signal handlerları təyin et
-trap 'echo "I hate the kill command"; rm -f /var/run/myscript.pid; exit 0' TERM
+trap 'echo "I hate the kill command"; rm -f "$pidfile"; exit 0' TERM
 trap 'echo "Y U no love me?!"' INT
-trap 'rm -f /var/run/myscript.pid; exit 0' QUIT
+trap 'rm -f "$pidfile"; exit 0' QUIT
 
 # Sonsuz loop
-while true
-do
+while true; do
     echo "To infinity and beyond"
     sleep 2
 done
