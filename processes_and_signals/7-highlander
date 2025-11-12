@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Display To infinity and beyond indefinitely with sleep 2
 
 # SIGTERM signalını tutmaq üçün trap istifadə et
