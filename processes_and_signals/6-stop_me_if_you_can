@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-#0 that my process has been terminated.
-#1 to run 6-stop_me_if_you_can. We can then see in terminal
-#0 that my process has been terminated.
-pkill 4-to_infinity_and_beyond
+#0 that my process has been terminated
+pkill all  4-to_infinity_and_beyond
