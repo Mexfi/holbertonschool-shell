@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 # Process and PID file management
 
-# /var/run/ qovluğunu yarat (əgər yoxdursa)
-sudo mkdir -p /var/run/
-
 # PID faylını yarat
-echo $$ | sudo tee /var/run/myscript.pid > /dev/null
+echo $$ > /var/run/myscript.pid
 
 # Signal handlerları təyin et
-trap 'echo "I hate the kill command"; sudo rm -f /var/run/myscript.pid; exit 0' TERM
+trap 'echo "I hate the kill command"; rm -f /var/run/myscript.pid; exit 0' TERM
 trap 'echo "Y U no love me?!"' INT
-trap 'sudo rm -f /var/run/myscript.pid; exit 0' QUIT
+trap 'rm -f /var/run/myscript.pid; exit 0' QUIT
 
 # Sonsuz loop
 while true
