@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Stops the 4-to_infinity_and_beyond process without using kill or killall
-ps -ef | grep "4-to_infinity_and_beyond" | grep -v "grep" | awk '{print $2}' | while read -r pid
-do
-  [ -n "$pid" ] && echo "Terminating process $pid" > /dev/null
-done
+pkill 4-to_infinity_and_beyond
+ps | grep 4-to_infinity_and_beyond
+
