@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
+# Create PID file and handle signals
+
 # PID faylını yarat
 echo $$ > /var/run/myscript.pid
 
+# Cleanup funksiyası
+cleanup() {
+    rm -f /var/run/myscript.pid
+    exit
+}
+
 # Signal handlerları təyin et
-trap 'echo "I hate the kill command"; rm -f /var/run/myscript.pid; exit' TERM
+trap 'echo "I hate the kill command"; cleanup' TERM
 trap 'echo "Y U no love me?!"' INT
-trap 'rm -f /var/run/myscript.pid; exit' QUIT
+trap cleanup QUIT
 
 # Sonsuz loop
 while true
