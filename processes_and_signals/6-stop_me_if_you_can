@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #0 that my process has been terminated.
-ps aux | 4-to_infinity_and_beyond
+ps aux | grep 4-to_infinity_and_beyond | grep -v grep | awk '{print $2}' | xargs -r kill
 pkill 4-to_infinity_and_beyond
