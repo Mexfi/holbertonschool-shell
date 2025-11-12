@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Stops the 4-to_infinity_and_beyond process
+# Script that stops 4-to_infinity_and_beyond process
 
-ps -ef | grep "4-to_infinity_and_beyond" | grep -v "grep" | awk '{print $2}' | while read -r pid; do
-  kill "$pid" 2>/dev/null
+for pid in $(pgrep -f "4-to_infinity_and_beyond"); do
+  kill "$pid" >/dev/null 2>&1
 done
 
