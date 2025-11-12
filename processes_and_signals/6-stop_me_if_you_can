@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
-# Script that stops 4-to_infinity_and_beyond process
+# Stops any running 4-to_infinity_and_beyond process (exact command name match)
 
-for pid in $(pgrep -f "4-to_infinity_and_beyond"); do
-  kill "$pid" >/dev/null 2>&1
+# extract PIDs whose command name is exactly "4-to_infinity_and_beyond"
+pids=$(ps -eo pid=,comm= | awk '$2=="4-to_infinity_and_beyond" {print $1}')
+
+for pid in $pids; do
+  if [ -n "$pid" ]; then
+    kill "$pid" >/dev/null 2>&1 || true
+  fi
 done
 
