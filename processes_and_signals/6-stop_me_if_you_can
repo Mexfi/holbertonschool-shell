@@ -1,8 +1,3 @@
 #!/usr/bin/env bash
 # Find the PID of the 4-to_infinity_and_beyond process
-pid=$(pgrep 4-to_infinity_and_beyond)
-
-# If the process is found, stop it using pkill
-if [ -n "$pid" ]; then
-    pkill -STOP 4-to_infinity_and_beyond
-fi
+pkill -x 4-to_infinity_and_beyond
