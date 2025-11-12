@@ -1,20 +1,55 @@
 #!/usr/bin/env bash
-# File: 10-process_and_pid_file
-# Location: processes_and_signals
+PIDFILE="/tmp/my_service.pid"
+SERVICE_CMD="sleep 600" # Örnek: 600 saniye (10 dakika) uyuyacak bir süreç
 
-PID_FILE="/var/run/myscript.pid"
+start_process() {
+    if [ -f "$PIDFILE" ]; then
+        echo "HATA: İşlem zaten çalışıyor. PID dosyası mevcut: $PIDFILE"
+        exit 1
+    fi
 
-# Create PID file
-echo $$ > "$PID_FILE"
+    # İşlemi arka planda başlat
+    $SERVICE_CMD &
+    
+    # Arka planda başlatılan son işlemin PID'sini al
+    PID=$! 
+    
+    # PID'yi dosyaya kaydet
+    echo "$PID" > "$PIDFILE"
+    echo "İşlem başlatıldı. PID: $PID. PID dosyası: $PIDFILE"
+}
 
-# Trap signals
-trap 'echo "I hate the kill command"' SIGTERM
-trap 'echo "Y U no love me?!"' SIGINT
-trap 'rm -f "$PID_FILE"; exit 0' SIGQUIT SIGTERM
+stop_process() {
+    if [ ! -f "$PIDFILE" ]; then
+        echo "HATA: PID dosyası bulunamadı: $PIDFILE"
+        exit 1
+    fi
 
-# Infinite loop
-while true; do
-    echo "To infinity and beyond"
-    sleep 1
-done
+    PID=$(cat "$PIDFILE")
+    
+    # İşleme kibarca SIGTERM (15) sinyali gönder
+    kill "$PID" 
+    
+    # İşlemin sonlanmasını bekle
+    # wait $PID 2>/dev/null 
+    
+    # PID dosyasını sil
+    rm "$PIDFILE"
+    echo "PID $PID ile çalışan işlem sonlandırıldı."
+}
 
+# Betiğin nasıl çalıştırılacağını gösterir
+case "$1" in
+    start)
+        start_process
+        ;;
+    stop)
+        stop_process
+        ;;
+    *)
+        echo "Kullanım: $0 {start|stop}"
+        exit 1
+        ;;
+esac
+
+exit 0
