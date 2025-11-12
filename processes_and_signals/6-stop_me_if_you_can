@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 #0 that my process has been terminated.
+grep | 4-to_infinity_and_beyond
 pkill 4-to_infinity_and_beyond
