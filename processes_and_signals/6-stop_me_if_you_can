@@ -1,4 +1,25 @@
 #!/usr/bin/env bash
 # Script to stop 4-to_infinity_and_beyond process without using kill or killall
+set -eu
 
-pkill -x 4-to_infinity_and_beyond 2>/dev/null || true
+name="4-to_infinity_and_beyond"
+
+# find PIDs (pgrep exits non-zero if none found; capture silently)
+pids=$(pgrep -x "$name" || true)
+
+if [ -z "$pids" ]; then
+  # nothing to stop
+  exit 0
+fi
+
+for pid in $pids; do
+  # use python3 to send SIGTERM (not the shell kill command)
+  python3 - <<PY
+import os, signal
+pid = ${pid}
+try:
+    os.kill(pid, signal.SIGTERM)
+except ProcessLookupError:
+    pass
+PY
+done
